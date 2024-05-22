@@ -1,0 +1,5 @@
+app:
+    resource:
+        path: ../src/Core/Presentation/UI
+        namespace: App\Core\Presentation\UI
+    type: attribute

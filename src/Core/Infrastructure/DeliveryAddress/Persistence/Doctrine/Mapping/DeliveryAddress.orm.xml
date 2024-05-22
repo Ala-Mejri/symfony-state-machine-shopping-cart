@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="App\Core\Domain\DeliveryAddress\Entity\DeliveryAddress" >
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="name" type="string" column="name" length="50" />
+        <field name="email" type="string" column="email" length="100" />
+        <field name="telephoneNumber" type="string" column="telephone_number" length="10" />
+        <field name="street" type="string" column="street" length="150" />
+        <field name="postalCode" type="integer" column="postal_code" />
+        <field name="taxNumber" type="string" column="tax_number" length="12" nullable="true" />
+
+        <many-to-one field="city" target-entity="App\Core\Domain\City\Entity\City" >
+            <join-column name="city_id" referenced-column-name="id" nullable="false" />
+        </many-to-one>
+    </mapped-superclass>
+
+</doctrine-mapping>
