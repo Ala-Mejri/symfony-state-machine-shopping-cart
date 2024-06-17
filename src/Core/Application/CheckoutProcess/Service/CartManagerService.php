@@ -22,17 +22,17 @@ final readonly class CartManagerService
     {
     }
 
-    public function getCurrentCart(): Order
+    public function getCurrentOrder(): Order
     {
         return $this->cartSessionStorage->getCart() ?? $this->orderFactory->create();
     }
 
-    public function removeCurrentCart(): void
+    public function removeCurrentOrder(): void
     {
         $this->cartSessionStorage->removeCart();
     }
 
-    public function saveCurrentCart(Order $order): void
+    public function saveCurrentOrder(Order $order): void
     {
         // Persists the cart order in the database
         $order = $this->saveCurrentUserOrderService->save($order);
@@ -43,11 +43,11 @@ final readonly class CartManagerService
 
     public function addProduct(Product $product): void
     {
-        $order = $this->getCurrentCart();
+        $order = $this->getCurrentOrder();
 
         $orderItem = $this->orderItemFactory->create($product);
         $order->addItem($orderItem);
 
-        $this->saveCurrentCart($order);
+        $this->saveCurrentOrder($order);
     }
 }

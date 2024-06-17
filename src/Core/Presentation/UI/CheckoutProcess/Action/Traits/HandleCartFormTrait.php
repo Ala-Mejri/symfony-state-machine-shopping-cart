@@ -16,7 +16,7 @@ trait HandleCartFormTrait
         $form = $this->actionFormHandler->handleFormRequest(CartType::class, $request, $order);
 
         if ($this->actionFormHandler->isFormSubmittedAndValid($form)) {
-            $this->cartManagerService->saveCurrentCart($order);
+            $this->cartManagerService->saveCurrentOrder($order);
         }
 
         return $form;

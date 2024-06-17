@@ -30,7 +30,7 @@ final class ShowSummaryAction extends AbstractController
 
     public function __invoke(Request $request): Response
     {
-        $order = $this->cartManagerService->getCurrentCart();
+        $order = $this->cartManagerService->getCurrentOrder();
 
         if (!$this->checkoutProcessStateMachine->can($order, CheckoutProcessType::TO_SUMMARY_FOR_PURCHASE->value)) {
             throw $this->responder->createAccessDeniedException('You cant access the summary page!');
@@ -44,7 +44,7 @@ final class ShowSummaryAction extends AbstractController
 
         $cartForm = $this->handleCartForm($request, $order);
         if ($this->actionFormHandler->isFormSubmittedAndValid($cartForm)) {
-            $this->cartManagerService->saveCurrentCart($order);
+            $this->cartManagerService->saveCurrentOrder($order);
 
             return $this->responder->redirectBack();
         }

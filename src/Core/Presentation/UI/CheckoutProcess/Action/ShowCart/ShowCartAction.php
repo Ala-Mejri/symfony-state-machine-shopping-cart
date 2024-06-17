@@ -27,11 +27,11 @@ final class ShowCartAction extends AbstractController
 
     public function __invoke(Request $request): Response
     {
-        $order = $this->cartManagerService->getCurrentCart();
+        $order = $this->cartManagerService->getCurrentOrder();
         $form = $this->actionFormHandler->handleFormRequest(ShowCartType::class, $request, $order);
 
         if ($this->actionFormHandler->isFormSubmittedAndValid($form)) {
-            $this->cartManagerService->saveCurrentCart($order);
+            $this->cartManagerService->saveCurrentOrder($order);
 
             return $this->responder->redirect();
         }

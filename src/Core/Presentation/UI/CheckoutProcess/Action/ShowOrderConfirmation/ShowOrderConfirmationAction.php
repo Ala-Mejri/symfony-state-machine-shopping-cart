@@ -28,7 +28,7 @@ final class ShowOrderConfirmationAction extends AbstractController
 
     public function __invoke(): Response
     {
-        $order = $this->cartManagerService->getCurrentCart();
+        $order = $this->cartManagerService->getCurrentOrder();
 
         if (!$this->checkoutProcessStateMachine->can($order, CheckoutProcessType::TO_ORDERED->value)) {
             throw $this->responder->createAccessDeniedException('You cant access the order confirmation page!');
@@ -40,7 +40,7 @@ final class ShowOrderConfirmationAction extends AbstractController
 
         if (!$this->isCheckoutProcessStateMachineInOrderedPlace($order)) {
             $this->checkoutProcessStateMachine->apply($order, CheckoutProcessType::TO_ORDERED->value);
-            $this->cartManagerService->removeCurrentCart();
+            $this->cartManagerService->removeCurrentOrder();
             $this->flashService->addSuccessFlash('Your order was placed successfully!');
         }
 
